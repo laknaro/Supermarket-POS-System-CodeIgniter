@@ -42,7 +42,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 osc.start();
                 osc.stop(ctx.currentTime + 0.12);
             }
-        } catch (e) {}
+        } catch (e) { }
     }
 
     // DOM Elements
@@ -193,7 +193,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Lookup Scanned Barcode in Grid Cards or Fallback to API
     async function lookupAndAddScannedProduct(code) {
         const codeClean = code.toLowerCase().trim();
-        
+
         // 1. Try matching visible DOM product cards first
         const cards = Array.from(document.querySelectorAll('.product-card'));
         const matchedCard = cards.find(card => {
@@ -205,7 +205,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (matchedCard) {
             const pId = parseInt(matchedCard.dataset.id);
             const pStock = parseInt(matchedCard.dataset.stock || 0);
-            const pName = matchedCard.dataset.name || matchedCard.querySelector('h4')?.innerText;
+            const pName = matchedCard.querySelector('h4')?.innerText || matchedCard.dataset.name;
             const pBarcode = matchedCard.dataset.barcode;
             const pPrice = parseFloat(matchedCard.querySelector('.font-indigo-700')?.innerText.replace(/[^0-9.]/g, '') || 0);
 
@@ -270,7 +270,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (e.key === 'Enter') {
                 e.preventDefault();
                 const visibleCards = Array.from(document.querySelectorAll('.product-card')).filter(c => c.style.display !== 'none');
-                
+
                 if (visibleCards.length === 1) {
                     visibleCards[0].click(); // Trigger quick add click
                     this.value = '';
@@ -422,7 +422,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const tender = parseFloat(tenderInput.value) || 0;
         const change = tender > netTotal ? tender - netTotal : 0;
         changeEl.innerText = `Rs. ${change.toFixed(2)}`;
-        
+
         if (paymentMethod === 'Cash' && tender < netTotal && netTotal > 0) {
             changeEl.className = 'text-xs font-black font-mono text-rose-600';
         } else {
@@ -565,7 +565,7 @@ document.addEventListener('DOMContentLoaded', () => {
                             }
                         });
                     }
-                    
+
                     // Render & trigger thermal receipt modal
                     populateThermalReceipt(billObj);
                     openReceiptModal();
@@ -675,11 +675,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (window.html2pdf) {
             const opt = {
-                margin:       [2, 2, 2, 2],
-                filename:     `Bill_${billNo}.pdf`,
-                image:        { type: 'jpeg', quality: 0.98 },
-                html2canvas:  { scale: 2, useCORS: true },
-                jsPDF:        { unit: 'mm', format: [80, 220], orientation: 'portrait' }
+                margin: [2, 2, 2, 2],
+                filename: `Bill_${billNo}.pdf`,
+                image: { type: 'jpeg', quality: 0.98 },
+                html2canvas: { scale: 2, useCORS: true },
+                jsPDF: { unit: 'mm', format: [80, 220], orientation: 'portrait' }
             };
             html2pdf().set(opt).from(element).save();
         } else {

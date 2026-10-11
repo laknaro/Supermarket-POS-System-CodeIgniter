@@ -1,0 +1,8 @@
+backend/vendor/
+backend/.env
+backend/writable/*
+!backend/writable/*/
+backend/writable/*/*
+!backend/writable/*/index.html
+frontend/public/assets/images/products/*
+!frontend/public/assets/images/products/.gitkeep

@@ -1,0 +1,8 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    { "label": "1. Install packages (composer install)", "type": "shell", "command": "composer install", "options": { "cwd": "${workspaceFolder}/backend" }, "problemMatcher": [] },
+    { "label": "2. Create tables + demo data", "type": "shell", "command": "php spark migrate && php spark db:seed DatabaseSeeder", "options": { "cwd": "${workspaceFolder}/backend" }, "problemMatcher": [] },
+    { "label": "3. Run server (http://localhost:8080)", "type": "shell", "command": "php spark serve", "options": { "cwd": "${workspaceFolder}/backend" }, "problemMatcher": [], "group": { "kind": "build", "isDefault": true } }
+  ]
+}
